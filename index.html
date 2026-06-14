@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>TADAH ♡ Lucky Gacha — Mobile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mitr:wght@400;500;600;700&family=Sarabun:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700;1,800;1,900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bubble-gum:#F3A2BE;
+    --cotton-candy:#FFD3DD;
+    --candy-floss:#F0F9F8;
+    --mint:#C6E6E3;
+    --wintergreen:#81BFB7;
+    --ink:#2C5E56;
+    --ink-soft:#4E867E;
+    --shadow:0 18px 38px -16px rgba(78,134,126,.4);
+    --card-shadow:0 10px 24px -8px rgba(78,134,126,.28);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html,body{height:100%}
+  body{
+    font-family:'Sarabun',sans-serif;color:var(--ink);
+    background:
+      radial-gradient(700px 500px at 10% -8%, #FFF0F5 0%, transparent 60%),
+      radial-gradient(600px 500px at 100% 0%, #DDF1EF 0%, transparent 55%),
+      radial-gradient(600px 500px at 90% 100%, #FFE2EA 0%, transparent 55%),
+      linear-gradient(170deg,var(--cotton-candy) 0%, #FFE6EC 48%, #E4F4F2 100%);
+    background-attachment:fixed;-webkit-font-smoothing:antialiased;
+  }
+
+  .ambient{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+  .ambient span{position:absolute;bottom:-50px;opacity:.45;
+    animation:floatUp linear infinite;filter:drop-shadow(0 3px 4px rgba(129,191,183,.22))}
+  @keyframes floatUp{0%{transform:translateY(0) rotate(0);opacity:0}12%{opacity:.5}100%{transform:translateY(-110vh) rotate(36deg);opacity:0}}
+
+  .app{position:relative;z-index:1;min-height:100dvh;display:flex;flex-direction:column;
+    align-items:center;padding:max(16px,env(safe-area-inset-top)) 18px calc(28px + env(safe-area-inset-bottom));gap:14px}
+
+  /* ---------- header ---------- */
+  header{text-align:center;width:100%;padding-top:6px}
+  .headline{font-family:'Playfair Display';font-style:italic;font-weight:900;
+    font-size:clamp(26px,8vw,38px);line-height:1.08;margin-bottom:4px;
+    background:linear-gradient(95deg,#0F4F46 0%, #BE2F63 50%, #962551 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    filter:drop-shadow(0 1px 0 rgba(255,255,255,.95))}
+  .eyebrow{font-family:'Mitr';font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+    font-size:clamp(13px,3.8vw,17px);color:var(--ink);margin-bottom:3px}
+  .sub{font-family:'Mitr';font-weight:500;font-size:clamp(12px,3.4vw,14px);color:var(--ink-soft)}
+
+  /* ======================================================== MACHINE */
+  .machine{position:relative;width:100%;max-width:380px;
+    display:flex;flex-direction:column;align-items:center;
+    transform-origin:center bottom;will-change:transform}
+  .machine.shake-soft{animation:shakeSoft .26s ease-in-out infinite}
+  .machine.shake-hard{animation:shakeHard .1s ease-in-out infinite}
+  @keyframes shakeSoft{0%,100%{transform:translate(0,0) rotate(0)}25%{transform:translate(-2px,1px) rotate(-.5deg)}75%{transform:translate(2px,-1px) rotate(.5deg)}}
+  @keyframes shakeHard{0%,100%{transform:translate(0,0) rotate(0)}20%{transform:translate(-5px,2px) rotate(-1.2deg)}40%{transform:translate(5px,-2px) rotate(1.2deg)}60%{transform:translate(-4px,-2px) rotate(-.9deg)}80%{transform:translate(4px,2px) rotate(.9deg)}}
+
+  .topper{font-size:clamp(24px,7vw,32px);line-height:1;margin-bottom:-8px;
+    filter:drop-shadow(0 4px 5px rgba(243,162,190,.45));animation:bobSlow 3.2s ease-in-out infinite;z-index:3}
+  @keyframes bobSlow{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-6px) rotate(4deg)}}
+
+  .dome{position:relative;width:96%;aspect-ratio:1.44;
+    border-radius:50% 50% 16% 16%/74% 74% 16% 16%;
+    background:
+      radial-gradient(120% 90% at 32% 22%, rgba(255,255,255,.96), rgba(255,255,255,.26) 38%, rgba(198,230,227,.2) 60%),
+      linear-gradient(180deg, rgba(255,255,255,.42), rgba(198,230,227,.36));
+    border:6px solid var(--mint);
+    box-shadow:inset 0 -14px 28px rgba(129,191,183,.36), inset 0 12px 26px rgba(255,255,255,.85), var(--shadow);
+    overflow:hidden}
+  .dome::after{content:"";position:absolute;top:8%;left:12%;width:34%;height:42%;
+    border-radius:50%;background:linear-gradient(135deg,rgba(255,255,255,.96),transparent 70%);
+    transform:rotate(-18deg);filter:blur(2px);pointer-events:none}
+  .caps{position:absolute;inset:6%}
+  .cap{position:absolute;width:22%;aspect-ratio:1;border-radius:50%;
+    display:grid;place-items:center;font-size:clamp(16px,5vw,22px);
+    box-shadow:inset 0 -5px 10px rgba(0,0,0,.1), inset 0 5px 9px rgba(255,255,255,.9);
+    animation:capFloat var(--d,4s) ease-in-out infinite alternate}
+  .cap::before{content:"";position:absolute;top:12%;left:18%;width:34%;height:30%;border-radius:50%;background:rgba(255,255,255,.85);filter:blur(.5px)}
+  @keyframes capFloat{0%{transform:translateY(0) translateX(0) rotate(-6deg)}100%{transform:translateY(-8px) translateX(5px) rotate(6deg)}}
+  .machine.spinning .cap{animation:capScatter .45s ease-in-out infinite}
+  @keyframes capScatter{0%{transform:translate(0,0)}25%{transform:translate(9px,-11px) rotate(18deg)}50%{transform:translate(-11px,8px) rotate(-16deg)}75%{transform:translate(8px,10px) rotate(12deg)}100%{transform:translate(-8px,-6px) rotate(-10deg)}}
+
+  .neck{width:36%;height:14px;background:linear-gradient(180deg,var(--mint),var(--wintergreen));
+    border-radius:0 0 11px 11px;box-shadow:inset 0 3px 5px rgba(255,255,255,.5)}
+
+  .body{position:relative;width:100%;
+    background:linear-gradient(180deg,#FFE4EC 0%, var(--cotton-candy) 100%);
+    border-radius:30px 30px 24px 24px;border:6px solid var(--wintergreen);
+    box-shadow:var(--shadow), inset 0 6px 16px rgba(255,255,255,.6), inset 0 -16px 28px rgba(243,162,190,.35);
+    padding:16px 18px;display:flex;flex-direction:column;gap:13px}
+  .body::before{content:"";position:absolute;top:9px;left:9px;right:9px;bottom:9px;
+    border:2px dashed rgba(129,191,183,.5);border-radius:22px;pointer-events:none}
+  .body::after{content:"";position:absolute;bottom:-12px;left:15%;width:70%;height:13px;
+    background:var(--wintergreen);border-radius:0 0 16px 16px;opacity:.9;z-index:-1}
+
+  .display{position:relative;height:46px;border-radius:14px;overflow:hidden;
+    background:linear-gradient(180deg,#FFFFFF,var(--candy-floss));border:3px solid var(--mint);
+    box-shadow:inset 0 3px 8px rgba(198,230,227,.6), 0 4px 10px rgba(129,191,183,.25);display:flex;align-items:center}
+  .marquee{display:inline-flex;white-space:nowrap;font-family:'Playfair Display';font-weight:800;font-style:italic;
+    font-size:20px;color:var(--bubble-gum);animation:marq 9s linear infinite}
+  .marquee span{padding:0 20px}
+  @keyframes marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  .coinrow{display:flex;align-items:center;gap:10px;justify-content:center;color:var(--ink);font-family:'Mitr';font-size:13px;font-weight:500}
+  .slot{width:54px;height:11px;border-radius:8px;background:rgba(129,191,183,.5);box-shadow:inset 0 2px 4px rgba(78,134,126,.5)}
+
+  .spin-btn{border:none;cursor:pointer;font-family:'Mitr';font-weight:600;font-size:21px;
+    color:#fff;padding:16px;min-height:58px;border-radius:18px;
+    background:linear-gradient(180deg,#F8B7CC,var(--bubble-gum));
+    box-shadow:0 7px 0 #D97C9B, 0 12px 20px rgba(217,124,155,.45), inset 0 2px 4px rgba(255,255,255,.6);
+    transition:transform .08s ease, box-shadow .08s ease;letter-spacing:.02em}
+  .spin-btn:active{transform:translateY(5px);box-shadow:0 2px 0 #D97C9B, 0 4px 10px rgba(217,124,155,.4)}
+  .spin-btn:disabled{cursor:not-allowed;filter:saturate(.75) brightness(.98);
+    background:linear-gradient(180deg,#EAC2CD,#D9A6B6);box-shadow:0 4px 0 #B6889A}
+
+  .chute{position:relative;align-self:center;width:52%;height:22px;
+    background:linear-gradient(180deg,var(--wintergreen),#5D9990);border-radius:9px 9px 13px 13px;
+    box-shadow:inset 0 4px 8px rgba(40,80,74,.4);margin-top:2px}
+  .chute span{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:11px;color:rgba(255,255,255,.6);font-family:'Mitr'}
+
+  .drop-cap{position:absolute;left:50%;top:42%;width:54px;height:54px;border-radius:50%;
+    display:grid;place-items:center;font-size:26px;transform:translate(-50%,-50%) scale(.2);
+    opacity:0;z-index:6;box-shadow:inset 0 -6px 10px rgba(0,0,0,.1),inset 0 5px 8px rgba(255,255,255,.85),0 6px 14px rgba(129,191,183,.4);pointer-events:none}
+  .drop-cap.go{animation:dropIt 1s cubic-bezier(.5,.05,.6,1.2) forwards}
+  @keyframes dropIt{0%{top:30%;opacity:0;transform:translate(-50%,-50%) scale(.3)}18%{opacity:1;transform:translate(-50%,-50%) scale(1)}70%{top:80%;transform:translate(-50%,-50%) scale(1) rotate(8deg)}100%{top:92%;opacity:0;transform:translate(-50%,-50%) scale(.85)}}
+
+  /* scroll hint */
+  .scroll-hint{font-family:'Mitr';font-weight:500;font-size:12px;color:var(--ink-soft);
+    display:flex;align-items:center;gap:6px;opacity:.8;animation:hintBob 1.8s ease-in-out infinite}
+  @keyframes hintBob{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
+
+  /* ======================================================== RARITY (stacked) */
+  .rarity{width:100%;max-width:420px;border-radius:26px;padding:16px;
+    background:linear-gradient(180deg,rgba(255,255,255,.5),rgba(255,255,255,.26));
+    border:2px solid rgba(255,255,255,.8);box-shadow:var(--shadow);
+    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    display:flex;flex-direction:column;gap:12px;margin-top:4px}
+  .rarity h4{font-family:'Mitr';font-weight:600;font-size:16px;color:var(--ink);text-align:center;letter-spacing:.02em}
+
+  .rate-box{display:grid;grid-template-columns:auto 1fr;gap:13px;align-items:center;
+    padding:13px 15px;border-radius:22px;position:relative;
+    background:linear-gradient(180deg,#FFFFFF,var(--candy-floss));border:3px solid #fff;box-shadow:var(--card-shadow)}
+  .rate-box .em-ball{position:relative;width:54px;aspect-ratio:1;border-radius:50%;
+    display:grid;place-items:center;font-size:28px;
+    box-shadow:inset 0 -5px 10px rgba(0,0,0,.1), inset 0 5px 9px rgba(255,255,255,.95), 0 6px 14px rgba(129,191,183,.28)}
+  .rate-box .em-ball::before{content:"";position:absolute;top:12%;left:18%;width:32%;height:28%;border-radius:50%;background:rgba(255,255,255,.85)}
+  .rate-box .txt{display:flex;flex-direction:column;justify-content:center;min-width:0}
+  .rate-box .info{display:flex;justify-content:space-between;align-items:baseline;gap:12px;width:100%}
+  .rate-box .nm{font-family:'Sarabun';font-weight:800;font-size:18px;color:var(--ink);white-space:nowrap}
+  .rate-box .pc{font-family:'Mitr';font-weight:700;font-size:22px;color:var(--bubble-gum);flex:0 0 auto}
+  .rate-box small{font-family:'Sarabun';font-weight:600;font-size:13px;color:var(--ink-soft);margin-top:3px;white-space:nowrap}
+
+  /* featured cookie — full detail + shimmer/glow */
+  .rate-featured .rate-box{overflow:hidden;background:linear-gradient(135deg,rgba(255,240,245,.92),rgba(243,162,190,.34));
+    border:3px solid var(--bubble-gum);animation:cookieGlow 2.4s ease-in-out infinite}
+  @keyframes cookieGlow{0%,100%{box-shadow:0 8px 20px -6px rgba(243,162,190,.45),0 0 0 0 rgba(247,201,72,0)}50%{box-shadow:0 10px 26px -6px rgba(243,162,190,.62),0 0 22px 5px rgba(247,201,72,.5)}}
+  .rate-featured .rate-box::after{content:"";position:absolute;top:0;left:-60%;width:42%;height:100%;
+    background:linear-gradient(100deg,transparent,rgba(255,255,255,.7),transparent);
+    transform:skewX(-18deg);animation:shimmerSweep 2.8s ease-in-out infinite;pointer-events:none;z-index:1}
+  @keyframes shimmerSweep{0%{left:-60%}60%,100%{left:135%}}
+  .rate-featured .rare-tag{align-self:flex-start;z-index:3;margin:5px 0 1px;font-family:'Mitr';font-weight:700;
+    font-size:10px;letter-spacing:.08em;color:#fff;padding:3px 11px;border-radius:999px;
+    background:linear-gradient(90deg,#F7C948,var(--bubble-gum));box-shadow:0 2px 6px rgba(243,162,190,.45)}
+  .rate-featured .em-ball{width:66px;font-size:36px;z-index:2}
+  .rate-featured .txt{z-index:2}
+  .rate-featured .nm{font-size:20px}
+  .rate-featured .pc{font-size:26px}
+
+  /* 4 normal boxes — single full-width column so content fits the box */
+  .rate-grid{display:grid;grid-template-columns:1fr;gap:11px}
+  .rate-grid .rate-box{gap:14px;padding:13px 16px}
+  .rate-grid .em-ball{width:52px;font-size:27px}
+  .rate-grid .nm{font-size:18px}
+  .rate-grid .pc{font-size:23px}
+
+  /* ======================================================== POPUP MODAL */
+  .overlay{position:fixed;inset:0;z-index:40;display:flex;align-items:center;justify-content:center;
+    padding:18px;background:rgba(44,94,86,.42);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+    opacity:0;visibility:hidden;transition:opacity .3s ease, visibility .3s ease}
+  .overlay.open{opacity:1;visibility:visible}
+  .modal{position:relative;z-index:50;width:100%;max-width:420px;max-height:90dvh;overflow:auto;
+    border-radius:30px;padding:30px 24px 24px;
+    background:linear-gradient(180deg,#FFFFFF,var(--candy-floss));border:4px solid #fff;
+    box-shadow:0 30px 70px -20px rgba(44,94,86,.5);text-align:center}
+  .overlay.open .modal{animation:popIn .55s cubic-bezier(.18,1.5,.42,1) forwards}
+  @keyframes popIn{0%{transform:scale(.7);opacity:0}60%{opacity:1}100%{transform:scale(1);opacity:1}}
+  .closeX{position:absolute;top:12px;right:14px;width:40px;height:40px;border:none;cursor:pointer;
+    border-radius:50%;background:rgba(129,191,183,.2);color:var(--ink);font-size:24px;line-height:1;
+    font-family:'Mitr';display:grid;place-items:center}
+  .rare-badge{display:inline-block;font-family:'Mitr';font-weight:700;font-size:12px;letter-spacing:.16em;
+    color:#fff;padding:6px 16px;border-radius:999px;margin-bottom:8px;
+    background:linear-gradient(90deg,#F7C948,var(--bubble-gum),#9FD9D2);animation:rareGlow 1.1s ease-in-out infinite}
+  @keyframes rareGlow{0%,100%{box-shadow:0 0 6px 1px rgba(247,201,72,.55);transform:scale(1)}50%{box-shadow:0 0 22px 7px rgba(243,162,190,.85);transform:scale(1.05)}}
+  .prize-cap{position:relative;width:clamp(120px,38vw,150px);aspect-ratio:1;border-radius:50%;margin:6px auto 12px;
+    display:grid;place-items:center;font-size:clamp(58px,18vw,76px);
+    box-shadow:inset 0 -8px 16px rgba(0,0,0,.1),inset 0 8px 14px rgba(255,255,255,.95),0 14px 32px rgba(129,191,183,.4)}
+  .prize-cap::before{content:"";position:absolute;top:12%;left:18%;width:32%;height:28%;border-radius:50%;background:rgba(255,255,255,.85)}
+  .p-name{font-family:'Playfair Display';font-weight:900;font-style:italic;font-size:clamp(28px,8vw,36px);color:var(--ink);line-height:1.1}
+  .p-name-th{font-family:'Mitr';font-weight:600;font-size:clamp(15px,4.4vw,18px);color:var(--ink);margin-top:2px}
+  .pill{display:inline-block;font-family:'Mitr';font-weight:600;font-size:13px;padding:6px 18px;border-radius:999px;color:#fff;margin-top:11px}
+  .divider{width:64%;height:2px;border-radius:2px;margin:15px auto;background:repeating-linear-gradient(90deg,var(--mint) 0 7px,transparent 7px 14px)}
+  .p-msg{font-family:'Sarabun';font-size:clamp(16px,4.4vw,18px);line-height:1.6;color:var(--ink);max-width:34ch;margin:0 auto;font-weight:500}
+  .p-foot{font-family:'Mitr';font-weight:600;font-size:14px;color:var(--bubble-gum);margin-top:15px}
+  .modal-actions{display:flex;flex-direction:column;gap:10px;margin-top:18px}
+  .btn-again{border:none;cursor:pointer;font-family:'Mitr';font-weight:600;font-size:17px;color:#fff;
+    padding:14px;min-height:54px;border-radius:999px;background:linear-gradient(180deg,#F8B7CC,var(--bubble-gum));
+    box-shadow:0 6px 0 #D97C9B, 0 10px 18px rgba(217,124,155,.4);transition:transform .08s}
+  .btn-again:active{transform:translateY(4px);box-shadow:0 2px 0 #D97C9B}
+  .btn-close{border:none;cursor:pointer;font-family:'Mitr';font-weight:600;font-size:16px;color:var(--ink-soft);
+    padding:13px;min-height:50px;border-radius:999px;background:rgba(198,230,227,.55);
+    box-shadow:0 4px 0 rgba(129,191,183,.5);transition:transform .08s}
+  .btn-close:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(129,191,183,.5)}
+
+  .confetti-layer{position:fixed;inset:0;pointer-events:none;z-index:45;overflow:hidden}
+  .confetti{position:absolute;top:-20px;width:10px;height:13px;border-radius:2px;animation:fall linear forwards}
+  @keyframes fall{to{transform:translateY(110dvh) rotate(720deg);opacity:.9}}
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation-duration:.001ms !important;animation-iteration-count:1 !important}
+    .overlay.open .modal{transform:scale(1);opacity:1}
+  }
+</style>
+</head>
+<body>
+  <div class="ambient" id="ambient"></div>
+
+  <div class="app">
+    <header>
+      <h1 class="headline">When desserts meet table ♡</h1>
+      <div class="eyebrow">Tadahxoxo · Lucky Booth</div>
+      <p class="sub">หมุนตู้เสี่ยงทาย รับสติกเกอร์น่ารักกลับบ้านเลย!</p>
+    </header>
+
+    <div class="machine" id="machine">
+      <div class="topper">🎀</div>
+      <div class="dome"><div class="caps" id="caps"></div></div>
+      <div class="neck"></div>
+      <div class="body">
+        <div class="display">
+          <div class="marquee">
+            <span>TADAH ♡ XOXO · LUCKY GACHA ·</span>
+            <span>TADAH ♡ XOXO · LUCKY GACHA ·</span>
+          </div>
+        </div>
+        <div class="coinrow"><span>♡</span><div class="slot"></div><span>หยอดใจ 1 ดวง</span></div>
+        <button class="spin-btn" id="spinBtn">🎰 หมุนเลย!</button>
+        <div class="chute"><span>· · · · ·</span></div>
+        <div class="drop-cap" id="dropCap"></div>
+      </div>
+    </div>
+
+    <div class="scroll-hint">เลื่อนลงดูอัตราการสุ่ม ↓</div>
+
+    <aside class="rarity">
+      <h4>✨ อัตราการสุ่ม (Drop Rate)</h4>
+      <div class="rate-featured" id="rateFeatured"></div>
+      <div class="rate-grid" id="rateGrid"></div>
+    </aside>
+  </div>
+
+  <div class="confetti-layer" id="confetti"></div>
+  <div class="overlay" id="overlay">
+    <div class="modal" id="modal" role="dialog" aria-modal="true">
+      <button class="closeX" id="closeX" aria-label="ปิด">×</button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+<script>
+const PRIZES = [
+  {id:'heart-pink', en:'Heart Pink',  th:'หัวใจสีชมพู', emoji:'💖', weight:41, tier:'ทั่วไป',     tierColor:'#EF8FAE',
+   msg:'หัวใจสีชมพูพองโต! ขอให้วันนี้เป็นวันที่เต็มไปด้วยความรักและความสดใสรอบตัวคุณนะ 🎀'},
+  {id:'heart-mint', en:'Heart Mint', th:'หัวใจสีเขียว', emoji:'💚', weight:41, tier:'ทั่วไป',     tierColor:'#7FBFA6',
+   msg:'หัวใจสีเขียวเหนี่ยวทรัพย์และความโชคดี! ขอให้วันนี้เจอแต่เรื่องราบรื่นและมีความสุขเบิกบานใจนะ 🌿'},
+  {id:'lucky-star',  en:'Lucky Star',  th:'ดวงดาวนำโชค', emoji:'🌟', weight:10, tier:'พิเศษ',      tierColor:'#E5B84D',
+   msg:'ดวงดาวนำโชคส่องประกาย! สิ่งที่คุณตั้งใจไว้กำลังจะสำเร็จในไม่ช้า ลุยเลยคุณทำได้! ✨'},
+  {id:'post-card',   en:'Post Card',   th:'โปสการ์ด',   emoji:'💌', weight:5, tier:'หายาก',     tierColor:'#C79AD9',
+   msg:'โปสการ์ดส่งตรงความสุข! มีข้อความดีๆ และเรื่องราวเซอร์ไพรส์น่ารักๆ กำลังเดินทางมาหาคุณนะ 📬'},
+  {id:'cookie',      en:'Cookie Magic',th:'คุกกี้เวทมนตร์', emoji:'🍪', weight:3,  tier:'แรร์สุดๆ!', tierColor:'#F3A2BE', rare:true,
+   msg:'คุกกี้เวทมนตร์แสนอร่อย! คุณคือผู้โชคดีขั้นสุด พลังความน่ารักและโชคดีใหญ่หลวงกำลังโอบกอดคุณในวันนี้! 🪄✨'},
+];
+
+const capColors=['#FFC2D2','#C6E6E3','#FFD9A8','#BFE6CF','#F3A2BE','#D4ECEA','#FFCFDC','#A9DAD3'];
+const capEmojis=['💗','💚','⭐','🍀','🎀','🌸','💫','🍪'];
+
+const capsBox=document.getElementById('caps');
+const positions=[[5,8],[40,4],[72,12],[11,42],[45,40],[75,44],[26,70],[61,68]];
+positions.forEach((p,i)=>{
+  const c=document.createElement('div');
+  c.className='cap';
+  c.style.left=p[0]+'%'; c.style.top=p[1]+'%';
+  c.style.background=`radial-gradient(120% 120% at 35% 30%, #fff8, ${capColors[i]} 55%)`;
+  c.style.setProperty('--d',(3.2+Math.random()*2.4).toFixed(2)+'s');
+  c.style.animationDelay=(-Math.random()*3)+'s';
+  c.textContent=capEmojis[i];
+  capsBox.appendChild(c);
+});
+
+function featuredHTML(p){
+  return `<div class="rate-box">
+    <div class="em-ball" style="background:radial-gradient(120% 120% at 35% 30%, #fff, ${p.tierColor}55 60%, ${p.tierColor})">${p.emoji}</div>
+    <div class="txt">
+      <div class="info"><span class="nm">${p.en}</span><span class="pc">${p.weight}%</span></div>
+      <span class="rare-tag">✦ ${p.tier} ✦</span>
+      <small>สติกเกอร์ลาย ${p.th}</small>
+    </div>
+  </div>`;
+}
+function gridHTML(p){
+  return `<div class="rate-box">
+    <div class="em-ball" style="background:radial-gradient(120% 120% at 35% 30%, #fff, ${p.tierColor}55 60%, ${p.tierColor})">${p.emoji}</div>
+    <div class="info"><span class="nm">${p.en}</span><span class="pc">${p.weight}%</span></div>
+  </div>`;
+}
+const featured=PRIZES.find(p=>p.rare);
+const others=PRIZES.filter(p=>!p.rare);
+document.getElementById('rateFeatured').innerHTML=featuredHTML(featured);
+const grid=document.getElementById('rateGrid');
+others.forEach(p=>{ const w=document.createElement('div'); w.innerHTML=gridHTML(p); grid.appendChild(w.firstElementChild); });
+
+const ambient=document.getElementById('ambient');
+const amb=['💖','💚','✨','🌟','🎀','🌸','💫','🍪'];
+for(let i=0;i<14;i++){
+  const s=document.createElement('span');
+  s.textContent=amb[i%amb.length];
+  s.style.left=Math.random()*100+'%';
+  s.style.fontSize=(15+Math.random()*18)+'px';
+  s.style.animationDuration=(11+Math.random()*12)+'s';
+  s.style.animationDelay=(-Math.random()*16)+'s';
+  ambient.appendChild(s);
+}
+
+function pickPrize(){
+  const total=PRIZES.reduce((s,p)=>s+p.weight,0);
+  let r=Math.random()*total;
+  for(const p of PRIZES){ if((r-=p.weight)<0) return p; }
+  return PRIZES[0];
+}
+
+function burstConfetti(){
+  const layer=document.getElementById('confetti');
+  const cols=['#F3A2BE','#C6E6E3','#FFD3DD','#81BFB7','#F8B7CC','#FFD9A8'];
+  for(let i=0;i<70;i++){
+    const c=document.createElement('div');
+    c.className='confetti';
+    c.style.left=Math.random()*100+'%';
+    c.style.background=cols[i%cols.length];
+    c.style.animationDuration=(2.4+Math.random()*1.8)+'s';
+    c.style.animationDelay=(Math.random()*.5)+'s';
+    if(i%3===0){c.style.borderRadius='50%';c.style.width='9px';c.style.height='9px';}
+    layer.appendChild(c);
+    setTimeout(()=>c.remove(),5000);
+  }
+}
+
+const machine=document.getElementById('machine');
+const spinBtn=document.getElementById('spinBtn');
+const dropCap=document.getElementById('dropCap');
+const overlay=document.getElementById('overlay');
+const modalBody=document.getElementById('modalBody');
+let busy=false;
+
+function spin(){
+  if(busy) return;
+  busy=true;
+  const prize=pickPrize();
+  spinBtn.disabled=true;
+  spinBtn.textContent='กำลังหมุน...';
+  machine.classList.add('shake-soft','spinning');
+  setTimeout(()=>{ machine.classList.remove('shake-soft'); machine.classList.add('shake-hard'); spinBtn.textContent='ลุ้นน...! ✨'; },820);
+  setTimeout(()=>{ machine.classList.remove('shake-hard','spinning'); },1840);
+  setTimeout(()=>{
+    dropCap.textContent=prize.emoji;
+    dropCap.style.background=`radial-gradient(120% 120% at 35% 30%, #fff, ${prize.tierColor}66 60%, ${prize.tierColor})`;
+    dropCap.classList.add('go');
+  },2000);
+  setTimeout(()=>{
+    dropCap.classList.remove('go');
+    openModal(prize);
+    if(prize.rare) burstConfetti();
+    spinBtn.disabled=false;
+    spinBtn.textContent='🎰 หมุนอีกครั้ง!';
+    busy=false;
+  },2950);
+}
+
+function openModal(p){
+  modalBody.innerHTML=`
+    ${p.rare?'<div class="rare-badge">✦ RARE ✦</div>':''}
+    <div class="prize-cap" style="background:radial-gradient(120% 120% at 35% 30%, #fff, ${p.tierColor}55 60%, ${p.tierColor})">${p.emoji}</div>
+    <div class="p-name">${p.en}</div>
+    <div class="p-name-th">สติกเกอร์ลาย ${p.th}</div>
+    <span class="pill" style="background:${p.tierColor}">${p.tier}</span>
+    <div class="divider"></div>
+    <p class="p-msg">${p.msg}</p>
+    <p class="p-foot">ขอให้โต๊ะของคุณมีแต่ของหวานและความสุขนะคะ 🎀</p>
+    <div class="modal-actions">
+      <button class="btn-again" id="btnAgain">หมุนใหม่อีกรอบ ↺</button>
+      <button class="btn-close" id="btnClose">ปิด ×</button>
+    </div>`;
+  overlay.classList.add('open');
+  document.getElementById('btnAgain').addEventListener('click',()=>{ closeModal(); window.scrollTo({top:0,behavior:'smooth'}); setTimeout(spin,300); });
+  document.getElementById('btnClose').addEventListener('click',closeModal);
+}
+function closeModal(){ overlay.classList.remove('open'); }
+
+document.getElementById('closeX').addEventListener('click',closeModal);
+overlay.addEventListener('click',e=>{ if(e.target===overlay) closeModal(); });
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
+spinBtn.addEventListener('click',spin);
+</script>
+</body>
+</html>
